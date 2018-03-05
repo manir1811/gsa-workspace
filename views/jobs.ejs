@@ -1,0 +1,12 @@
+<h1>This is the Jobs Page</h1>
+
+<a href="/">Go to dashboard</a>
+
+<% jobs.forEach(function(job){ %>
+    <div>
+        <div> <%= job.Job_number %> </div>
+        <div> <%= job.IMO %> </div>
+        <div> <%= job.Agency %> </div>
+        <div> <%= job.port %> </div>
+    </div>
+<% }) %>
