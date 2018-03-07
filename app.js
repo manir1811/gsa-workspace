@@ -32,16 +32,6 @@ app.get("/", function(req, res){
     res.render("dboard");
 });
 
-// var ships = [
-//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'}
-//     ];
-
-
 app.get("/jobs", function(req,res){
     //Find all the jobs from DB and loop it
     Job.find({}, function(err, alljobs){
@@ -73,8 +63,20 @@ app.post("/jobs", function(req, res){
 });
 
 app.get("/jobs/new", function(req, res){
-    res.render("new-job");
+    res.render("job-new");
 });
+
+app.get("/jobs/:id", function(req, res){
+    // FIND THE JOB DETAILS WITH PROVIDED ID
+    Job.findById(req.params.id,function(err, foundjobDetails){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("job-details", {jobDetails: foundjobDetails});
+        }
+    });
+});
+
 
 app.get("/ships", function(req, res){
     Ship.find({}, function(err, allships){
@@ -105,6 +107,17 @@ app.post("/ships", function(req, res){
         } else {
                 // Redirect to jobs page
                 res.redirect("/ships");
+        }
+    });
+});
+
+app.get("/ships/:id", function(req, res){
+    // FIND THE SHIP DETAILS WITH PROVIDED ID
+    Ship.findById(req.params.id,function(err, foundShipDetails){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("ship-details", {shipDetails: foundShipDetails});
         }
     });
 });
