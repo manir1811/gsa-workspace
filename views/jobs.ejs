@@ -8,17 +8,25 @@
     <ul class="collapsible" data-collapsible="accordion">
         <% jobs.forEach(function(job){ %>
         <li>
-          <div class="collapsible-header">First</div>
-          <div class="collapsible-body grey"><span>Lorem ipsum dolor sit amet.</span></div>
+          <div class="collapsible-header">
+                  <div class="row" style="width:100%">
+                      <div class="col s3">
+                        Job: <%= job.Job_number %>
+                      </div>
+                      <div class="col s3">
+                        imo: <%= job.IMO %>
+                      </div>
+                      <div class="col s3">
+                       agncy: <%= job.Agency %>
+                      </div>
+                      <div class="col s3">
+                        port: <%= job.port %>
+                      </div>
+              </div>
+          </div>
+          <div class="collapsible-body grey lighten-4"><span>Lorem ipsum dolor sit amet.</span></div>
         </li>
        <% }); %>
       </ul>
-
-
-
-
-
-    
-
 
 <% include ./partials/footer %>
