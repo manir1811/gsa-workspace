@@ -1,53 +1,75 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 
+mongoose.connect("mongodb://localhost/workspace");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
+
+// SCHEMA SETUP
+var jobSchema = new mongoose.Schema({
+    job_num: String,
+    IMO: String,
+    agency: String,
+    port: String
+});
+
+var Job = mongoose.model("Job", jobSchema);
+
+var shipSchema = new mongoose.Schema({
+    name: String,
+    IMO: String,
+    call: String,
+    Flag: String
+});
+
+var Ship = mongoose.model("Ship", shipSchema);
+
+// ROUTES
 
 app.get("/", function(req, res){
     res.render("dboard");
 });
 
- var jobs = [
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'},
-        {'Job_number': 1, 'IMO': 123456, 'Agency': 'Sharaf', 'port': 'RT'}
-        ];
-
-var ships = [
-    {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-    {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-    {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-    {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-    {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
-    {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'}
-    ];
+// var ships = [
+//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
+//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
+//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
+//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
+//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'},
+//     {'name': 'Nordic Hunter', 'IMO': 123456, 'call': 'LAOD5', 'flag':'Norway'}
+//     ];
 
 
 app.get("/jobs", function(req,res){
-   res.render("jobs",{jobs:jobs}); 
+    //Find all the jobs from DB and loop it
+    Job.find({}, function(err, alljobs){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("jobs",{jobs:alljobs}); 
+        }
+    });
 });
 
 app.post("/jobs", function(req, res){
     // Get the form data and add it into the array for now!
-    var Job_number = req.body.Job_number;
+    var job_num = req.body.job_num;
     var IMO = req.body.IMO;
-    var Agency = req.body.Agency;
+    var agency = req.body.agency;
     var port = req.body.port;
-    var newJob = {Job_number:Job_number, IMO:IMO , Agency:Agency, port:port};
-    jobs.push(newJob);
-    // Redirect to jobs page
-    res.redirect("/jobs");
+    var newJob = {job_num:job_num, IMO:IMO , agency:agency, port:port};
+    console.log(newJob);
+    // CREATE NEW JOB AND SAVE TO DB
+    Job.create(newJob, function(err, newCreatedJob){
+        if(err){
+            console.log(err);
+        } else {
+                // Redirect to jobs page
+                res.redirect("/jobs");
+        }
+    });
 });
 
 app.get("/jobs/new", function(req, res){
@@ -55,7 +77,14 @@ app.get("/jobs/new", function(req, res){
 });
 
 app.get("/ships", function(req, res){
-    res.render("ships",{ships:ships});
+    Ship.find({}, function(err, allships){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("ships",{ships:allships});
+        }
+    });
+    
 });
 
 app.get("/ships/new", function(req, res){
@@ -69,9 +98,15 @@ app.post("/ships", function(req, res){
     var call = req.body.call;
     var flag = req.body.flag;
     var newShip = {name:name, IMO:IMO , call:call, flag:flag};
-    ships.push(newShip);
-    // Redirect to ships page
-    res.redirect("/ships");
+    // CREATE NEW JOB AND SAVE TO DB
+    Ship.create(newShip, function(err, newCreatedShip){
+        if(err){
+            console.log(err);
+        } else {
+                // Redirect to jobs page
+                res.redirect("/ships");
+        }
+    });
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
