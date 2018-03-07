@@ -1,0 +1,16 @@
+
+<% include ./partials/header %>
+
+<h1>Job edit page</h1>
+
+<form action="/jobs/<%=jobDetails._id%>?_method=PUT" method="POST">
+    <input type-="text" value="<%=jobDetails.job_num %>" name="jobDetails[job_num]"></input>
+    <input type-="text" value="<%=jobDetails.IMO %>" name="jobDetails[IMO]"></input>
+    <input type-="text" value="<%=jobDetails.agency %>" name="jobDetails[agency]"></input>
+    <input type-="text" value="<%=jobDetails.port %>" name="jobDetails[port]"></input>
+    <button>Submit!</button>
+</form>
+
+<a href="/jobs">Go Back</a>
+
+<% include ./partials/footer %>

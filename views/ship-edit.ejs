@@ -1,0 +1,15 @@
+<% include ./partials/header %>
+
+<h1>Edit Vessel</h1>
+
+<form action="/ships/<%=shipDetails._id%>?_method=PUT" method="POST">
+    <input type-="text" value="<%= shipDetails.name %>" name="shipDetails[name]"></input>
+    <input type-="text" value="<%= shipDetails.IMO %>" name="shipDetails[IMO]"></input>
+    <input type-="text" value="<%= shipDetails.call %>" name="shipDetails[call]"></input>
+    <input type-="text" value="<%= shipDetails.flag %>" name="shipDetails[flag]"></input>
+    <button>Submit!</button>
+</form>
+
+<a href="/ships/<%=shipDetails._id%>">Go Back</a>
+
+<% include ./partials/footer %>

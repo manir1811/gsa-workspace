@@ -2,10 +2,12 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var methodOverride = require("method-override");
 
 mongoose.connect("mongodb://localhost/workspace");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
+app.use(methodOverride("_method"));
 
 // SCHEMA SETUP
 var jobSchema = new mongoose.Schema({
@@ -21,12 +23,13 @@ var shipSchema = new mongoose.Schema({
     name: String,
     IMO: String,
     call: String,
-    Flag: String
+    flag: String
 });
 
 var Ship = mongoose.model("Ship", shipSchema);
 
-// ROUTES
+//=========== JOB ROUTES ================
+//=======================================
 
 app.get("/", function(req, res){
     res.render("dboard");
@@ -50,7 +53,6 @@ app.post("/jobs", function(req, res){
     var agency = req.body.agency;
     var port = req.body.port;
     var newJob = {job_num:job_num, IMO:IMO , agency:agency, port:port};
-    console.log(newJob);
     // CREATE NEW JOB AND SAVE TO DB
     Job.create(newJob, function(err, newCreatedJob){
         if(err){
@@ -77,6 +79,33 @@ app.get("/jobs/:id", function(req, res){
     });
 });
 
+// JOB EDIT
+
+app.get("/jobs/:id/edit", function(req, res){
+    Job.findById(req.params.id, function(err, foundjobDetails){
+        if(err){
+            console.log(err);
+        } else {
+                res.render("job-edit", {jobDetails: foundjobDetails});
+                // console.log(foundjobDetails);
+        }
+    });
+});
+
+// JOB UPDATE
+
+app.put("/jobs/:id", function(req, res){
+    Job.findByIdAndUpdate(req.params.id, req.body.jobDetails, function(err, updatedJobDetails){
+       if(err){
+           console.log(err);
+       } else {
+           res.redirect("/jobs/" + req.params.id);
+       }
+    });
+});
+
+//============== SHIP ROUTES ====================
+//===============================================
 
 app.get("/ships", function(req, res){
     Ship.find({}, function(err, allships){
@@ -89,9 +118,13 @@ app.get("/ships", function(req, res){
     
 });
 
+// SHIP - NEW - FORM
+
 app.get("/ships/new", function(req, res){
     res.render("ship-new");
 });
+
+// SHIP DETAILS PAGE
 
 app.post("/ships", function(req, res){
     // Get the form data and add it into the array for now!
@@ -111,6 +144,8 @@ app.post("/ships", function(req, res){
     });
 });
 
+// SHIP DETAILS
+
 app.get("/ships/:id", function(req, res){
     // FIND THE SHIP DETAILS WITH PROVIDED ID
     Ship.findById(req.params.id,function(err, foundShipDetails){
@@ -121,6 +156,33 @@ app.get("/ships/:id", function(req, res){
         }
     });
 });
+
+// SHIP EDIT
+
+app.get("/ships/:id/edit", function(req, res){
+    Ship.findById(req.params.id, function(err, foundShipDetails){
+        if(err){
+            console.log(err);
+        } else {
+                res.render("ship-edit", {shipDetails: foundShipDetails});
+                // console.log(foundShipDetails);
+        }
+    });
+});
+
+// SHIP UPDATE
+
+app.put("/ships/:id", function(req, res){
+    Ship.findByIdAndUpdate(req.params.id, req.body.shipDetails, function(err, updatedShipDetails){
+       if(err){
+           console.log(err);
+       } else {
+           console.log(updatedShipDetails);
+           res.redirect("/ships/" + req.params.id);
+       }
+    });
+});
+
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("GSA Workspace server has started!");
