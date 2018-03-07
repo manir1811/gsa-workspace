@@ -1,0 +1,32 @@
+<% include ./partials/header %>
+
+<h1>Vessel list goes here!</h1>
+
+<a href="/">Go to dashboard</a>
+<a href="/ships/new">Add a new vessel</a>
+
+    <ul class="collapsible" data-collapsible="accordion">
+        <% ships.forEach(function(ship){ %>
+        <li>
+          <div class="collapsible-header">
+                  <div class="row" style="width:100%">
+                      <div class="col s3">
+                        Vessel Name: <%= ship.name %>
+                      </div>
+                      <div class="col s3">
+                        imo: <%= ship.IMO %>
+                      </div>
+                      <div class="col s3">
+                       call sign: <%= ship.call %>
+                      </div>
+                      <div class="col s3">
+                        flag: <%= ship.flag %>
+                      </div>
+              </div>
+          </div>
+          <div class="collapsible-body grey lighten-4"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+       <% }); %>
+      </ul>
+
+<% include ./partials/footer %>

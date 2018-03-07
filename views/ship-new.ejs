@@ -1,0 +1,15 @@
+<% include ./partials/header %>
+
+<h1>Add a new Vessel</h1>
+
+<form action="/ships" method="POST">
+    <input type-="text" placeholder="Vessel Name" name="name"></input>
+    <input type-="text" placeholder="IMO Number" name="IMO"></input>
+    <input type-="text" placeholder="Call Sign" name="call"></input>
+    <input type-="text" placeholder="Flag" name="flag"></input>
+    <button>Submit!</button>
+</form>
+
+<a href="/jobs">Go Back</a>
+
+<% include ./partials/footer %>
