@@ -10,14 +10,6 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 
 // SCHEMA SETUP
-var jobSchema = new mongoose.Schema({
-    job_num: String,
-    IMO: String,
-    agency: String,
-    port: String
-});
-
-var Job = mongoose.model("Job", jobSchema);
 
 var shipSchema = new mongoose.Schema({
     name: String,
@@ -27,6 +19,21 @@ var shipSchema = new mongoose.Schema({
 });
 
 var Ship = mongoose.model("Ship", shipSchema);
+
+var jobSchema = new mongoose.Schema({
+    job_num: String,
+    IMO: String,
+    agency: String,
+    port: String,
+    ship: [
+        {
+            type: mongoose.Schema.Types.ObjectId, ref: "Ship"
+        }
+    ]
+});
+
+var Job = mongoose.model("Job", jobSchema);
+
 
 //=========== JOB ROUTES ================
 //=======================================
@@ -53,16 +60,34 @@ app.post("/jobs", function(req, res){
     var agency = req.body.agency;
     var port = req.body.port;
     var newJob = {job_num:job_num, IMO:IMO , agency:agency, port:port};
-    // CREATE NEW JOB AND SAVE TO DB
-    Job.create(newJob, function(err, newCreatedJob){
+    
+    // FIND IMO FROM SHIP DB
+    Ship.findOne({IMO: IMO}, function(err, foundShip){
         if(err){
             console.log(err);
         } else {
-                // Redirect to jobs page
-                res.redirect("/jobs");
+            // CREATE NEW JOB AND SAVE TO DB
+            Job.create(newJob, function(err, newCreatedJob){
+                if(err){
+                    console.log(err);
+                } else {
+                    // SAVE CORRESPONDING DETAILS TO ARRAY
+                    newCreatedJob.ship.push(foundShip);
+                    newCreatedJob.save(function(err, data){
+                        if(err){
+                            console.log(err);
+                        } else {
+                            // console.log(data);
+                        }
+                    });
+                        //Redirect to jobs page
+                        res.redirect("/jobs");
+                }
+            });
         }
     });
 });
+
 
 app.get("/jobs/new", function(req, res){
     res.render("job-new");
@@ -103,6 +128,18 @@ app.put("/jobs/:id", function(req, res){
        }
     });
 });
+
+// JOB DELETE
+app.delete("/jobs/:id", function(req, res){
+    Job.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect("/jobs");
+        }
+    });
+});
+
 
 //============== SHIP ROUTES ====================
 //===============================================
@@ -180,6 +217,18 @@ app.put("/ships/:id", function(req, res){
            console.log(updatedShipDetails);
            res.redirect("/ships/" + req.params.id);
        }
+    });
+});
+
+// SHIP DELETE
+
+app.delete("/ships/:id", function(req, res){
+    Ship.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            console.log(err);
+        } else {
+            res.redirect("/ships");
+        }
     });
 });
 

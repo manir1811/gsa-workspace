@@ -1,5 +1,8 @@
 <% include ./partials/header %>
 
 <h1> <%=jobDetails.IMO%> </h1>
+<form action="/jobs/<%=jobDetails._id%>?_method=DELETE" method="POST">
+    <button>Delete</button>
+</form>
 
 <% include ./partials/footer %>
