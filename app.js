@@ -19,6 +19,8 @@ app.get("/", function(req, res){
     res.render("dboard");
 });
 
+// JOB SHOW ALL
+
 app.get("/jobs", function(req,res){
     //Find all the jobs from DB and loop it
     Job.find({}, function(err, alljobs){
@@ -29,6 +31,8 @@ app.get("/jobs", function(req,res){
         }
     });
 });
+
+// JOB CREATE
 
 app.post("/jobs", function(req, res){
     // Get the form data and add it into the array for now!
@@ -67,10 +71,13 @@ app.post("/jobs", function(req, res){
     });
 });
 
+// JOB NEW FORM
 
 app.get("/jobs/new", function(req, res){
     res.render("job-new");
 });
+
+// JOB DETAILS PAGE
 
 app.get("/jobs/:id", function(req, res){
     // FIND THE JOB DETAILS WITH PROVIDED ID
@@ -144,17 +151,11 @@ app.get("/ships/new", function(req, res){
 // SHIP DETAILS PAGE
 
 app.post("/ships", function(req, res){
-    // Get the form data and add it into the array for now!
-    var name = req.body.name;
-    var IMO = req.body.IMO;
-    var call = req.body.call;
-    var flag = req.body.flag;
-    var newShip = {name:name, IMO:IMO , call:call, flag:flag};
-    // CREATE NEW JOB AND SAVE TO DB
-    Ship.create(newShip, function(err, newCreatedShip){
+    Ship.create(req.body.ship, function(err, newCreatedShip){
         if(err){
             console.log(err);
         } else {
+            console.log(newCreatedShip);
                 // Redirect to jobs page
                 res.redirect("/ships");
         }

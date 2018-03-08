@@ -1,6 +1,6 @@
 <% include ./partials/header %>
 
-<h1> <%=shipDetails.IMO%> </h1>
+<h4> <%=shipDetails.IMO%> </h4>
 <form action="/ships/<%=shipDetails._id%>?_method=DELETE" method="POST">
     <button>Delete</button>
 </form>
