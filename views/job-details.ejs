@@ -1,8 +1,20 @@
 <% include ./partials/header %>
 
-<h1> <%=jobDetails.IMO%> </h1>
+<h1>Job Number: <%= jobDetails.job_num %> </h1>
+<p>Agency: <%= jobDetails.agency %> </p>
+<p>Port: <%= jobDetails.port %> </p>
+
+    <% jobDetails.ship.forEach(function(vessel){ %>
+        <h1> <%=vessel.name%> </h1>
+        <p>Ship Name: <%=vessel.IMO%></p>
+        <p>Call Sign: <%=vessel.call%></p>
+        <p>Flag: <%=vessel.flag%></p>
+    <% }); %>
+
+
 <form action="/jobs/<%=jobDetails._id%>?_method=DELETE" method="POST">
     <button>Delete</button>
+    <input></input>
 </form>
 
 <% include ./partials/footer %>

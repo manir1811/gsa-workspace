@@ -3,36 +3,13 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var methodOverride = require("method-override");
+var Ship = require("./models/ship");
+var Job = require("./models/job");
 
 mongoose.connect("mongodb://localhost/workspace");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
-
-// SCHEMA SETUP
-
-var shipSchema = new mongoose.Schema({
-    name: String,
-    IMO: String,
-    call: String,
-    flag: String
-});
-
-var Ship = mongoose.model("Ship", shipSchema);
-
-var jobSchema = new mongoose.Schema({
-    job_num: String,
-    IMO: String,
-    agency: String,
-    port: String,
-    ship: [
-        {
-            type: mongoose.Schema.Types.ObjectId, ref: "Ship"
-        }
-    ]
-});
-
-var Job = mongoose.model("Job", jobSchema);
 
 
 //=========== JOB ROUTES ================
@@ -65,6 +42,8 @@ app.post("/jobs", function(req, res){
     Ship.findOne({IMO: IMO}, function(err, foundShip){
         if(err){
             console.log(err);
+        } else if(foundShip == null) {
+            res.send("No ship found in Database");  // FIX THIS WITH BETTER ERROR HANDLING
         } else {
             // CREATE NEW JOB AND SAVE TO DB
             Job.create(newJob, function(err, newCreatedJob){
@@ -95,10 +74,11 @@ app.get("/jobs/new", function(req, res){
 
 app.get("/jobs/:id", function(req, res){
     // FIND THE JOB DETAILS WITH PROVIDED ID
-    Job.findById(req.params.id,function(err, foundjobDetails){
+    Job.findById(req.params.id).populate("ship").exec(function(err, foundjobDetails){
         if(err){
             console.log(err);
         } else {
+            // console.log(foundjobDetails);
             res.render("job-details", {jobDetails: foundjobDetails});
         }
     });
