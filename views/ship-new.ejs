@@ -18,39 +18,42 @@
                 <label for="IMO">IMO Number</label>
             </div>
             <div class="input-field col s6 m3">
-                <input id="port_of_registry" type="text" name="ship[port_of_registry]">
-                <label for="port_of_registry">Port of Registry</label>
+                <input id="call" type="text" name="ship[call]">
+                <label for="call">Call Sign</label>
             </div>
             <div class="input-field col s6 m3">
-                <input id="county_of_registry" type="text" name="ship[county_of_registry]">
-                <label for="county_of_registry">Country of Registry</label>
+                <input id="port_of_registry" type="text" name="ship[port_of_registry]">
+                <label for="port_of_registry">Port of Registry</label>
             </div>
         </div>
         
         <!--SECOND ROW-->
         
         <div class="row">
-            <div class="input-field col s12 m6">
-                <input id="vessel_owner" type="text" name="ship[vessel_owner]">
-                <label for="vessel_owner">Vessel Owner</label>
+            <div class="input-field col s6 m3">
+                <input id="county_of_registry" type="text" name="ship[county_of_registry]">
+                <label for="county_of_registry">Country of registry</label>
             </div>
             <div class="input-field col s6 m3">
                 <input id="gross_tonnage" type="number" name="ship[gross_tonnage]" class="validate">
                 <label for="gross_tonnage">Gross Tonnage in MT</label>
             </div>
             <div class="input-field col s6 m3">
-                <input type="text" class="datepicker" name="ship[date_of_construction] id="date_of_construction"">
+                <input type="text" class="datepicker" name="ship[date_of_construction]" id="date_of_construction">
                 <label for="date_of_construction">Date of Construction</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <input id="total_bw_cap" type="number" name="ship[total_bw_cap]" class="validate">
+                <label for="total_bw_cap">Total BW Capacity in MT</label>
             </div>
         </div>
         
         <!--THIRD ROW-->
         
         <div class="row">
-            
-            <div class="input-field col s6 m3">
-                <input id="total_bw_cap" type="number" name="ship[total_bw_cap]" class="validate">
-                <label for="total_bw_cap">Total BW Capacity in MT</label>
+            <div class="input-field col s12 m6">
+                <input id="vessel_owner" type="text" name="ship[vessel_owner]">
+                <label for="vessel_owner">Vessel Owner</label>
             </div>
             <div class="input-field col s6 m3">
                 <select name="ship[bw_method]">
@@ -64,10 +67,12 @@
                 <input id="treat_sys_name" type="text" name="ship[treat_sys_name]">
                 <label for="treat_sys_name">Treatment System Name</label>
             </div>
+        <div class="row">
             <div class="input-field col s6 m3">
                 <input id="approved_by" type="text" name="ship[approved_by]">
                 <label for="approved_by">Approved By</label>
             </div>
+        </div>
       </div>
       <a href="/jobs">Go Back</a>
         <button class="btn waves-effect waves-light right" type="submit" name="action">Submit

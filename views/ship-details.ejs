@@ -1,6 +1,61 @@
 <% include ./partials/header %>
 
-<h4> <%=shipDetails.IMO%> </h4>
+<h4 class="center"> <%=shipDetails.name%> </h4>
+
+<div class="row">
+        
+        <!--FIRST ROW -->
+        
+        <div class="row">
+            <div class=" col s4">
+                IMO Number: <%= shipDetails.IMO %>
+            </div>
+            <div class="  col s4">
+                Call Sign: <%= shipDetails.call %>
+            </div>
+            <div class="  col s4">
+                Port of Registry: <%= shipDetails.port_of_registry %>
+            </div>
+        </div>
+        
+        <!--SECOND ROW-->
+        
+        <div class="row">
+            <div class="  col s4">
+                Country of Registry: <%= shipDetails.country_of_registry %>
+            </div>
+            <div class="  col s4">
+                Vessel Owner: <%= shipDetails.vessel_owner %>
+            </div>
+            <div class="  col s4">
+                Gross Tonnage: <%= shipDetails.gross_tonnage %>
+            </div>
+        </div>
+        
+        <!--THIRD ROW-->
+        
+        <div class="row">
+            <div class="  col s4">
+                Date of Construction: <%= shipDetails.date_of_construction %>
+            </div>
+            <div class="  col s4">
+                Total BW Capacity: <%= shipDetails.total_bw_cap %>
+            </div>
+            <div class="  col s4">
+                Ballast Water Method: <%= shipDetails.bw_method %>
+            </div>
+      </div>
+      
+      <div class="row">
+            <div class="  col s4">
+                Treatment System Name: <%= shipDetails.treat_sys_name %>
+            </div>
+            <div class="  col s4">
+                Approved By: <%= shipDetails.approved_by %>
+         </div>
+      </div>
+</div>
+
 <form action="/ships/<%=shipDetails._id%>?_method=DELETE" method="POST">
     <button>Delete</button>
 </form>
