@@ -1,6 +1,6 @@
 <% include ./partials/header %>
 
-<h4 class="center"> <%=shipDetails.name%> </h4>
+<h4 class="center"> <%=shipDetails.name%> <a class="right" href="/ships/<%=shipDetails._id%>/edit"><i class="material-icons">edit</i></a></h4> 
 
 <div class="row">
         
@@ -8,13 +8,13 @@
         
         <div class="row">
             <div class=" col s4">
-                IMO Number: <%= shipDetails.IMO %>
+                IMO Number: <strong><%= shipDetails.IMO %></strong>
             </div>
             <div class="  col s4">
-                Call Sign: <%= shipDetails.call %>
+                Call Sign: <strong><%= shipDetails.call %></strong>
             </div>
             <div class="  col s4">
-                Port of Registry: <%= shipDetails.port_of_registry %>
+                Port of Registry: <strong><%= shipDetails.port_of_registry %></strong>
             </div>
         </div>
         
@@ -22,13 +22,13 @@
         
         <div class="row">
             <div class="  col s4">
-                Country of Registry: <%= shipDetails.country_of_registry %>
+                Country of Registry: <strong><%= shipDetails.country_of_registry %></strong>
             </div>
             <div class="  col s4">
-                Vessel Owner: <%= shipDetails.vessel_owner %>
+                Vessel Owner: <strong><%= shipDetails.vessel_owner %></strong>
             </div>
             <div class="  col s4">
-                Gross Tonnage: <%= shipDetails.gross_tonnage %>
+                Gross Tonnage: <strong><%= shipDetails.gross_tonnage %></strong>
             </div>
         </div>
         
@@ -36,28 +36,34 @@
         
         <div class="row">
             <div class="  col s4">
-                Date of Construction: <%= shipDetails.date_of_construction %>
+                Date of Construction: <strong><%= shipDetails.date_of_construction %></strong>
             </div>
             <div class="  col s4">
-                Total BW Capacity: <%= shipDetails.total_bw_cap %>
+                Total BW Capacity: <strong><%= shipDetails.total_bw_cap %></strong>
             </div>
             <div class="  col s4">
-                Ballast Water Method: <%= shipDetails.bw_method %>
+                Vessel Type: <strong><%= shipDetails.vessel_type %></strong>
             </div>
       </div>
       
       <div class="row">
             <div class="  col s4">
-                Treatment System Name: <%= shipDetails.treat_sys_name %>
+                Ballast Water Method: <strong><%= shipDetails.bw_method %></strong>
             </div>
             <div class="  col s4">
-                Approved By: <%= shipDetails.approved_by %>
+                Treatment Name: <strong><%= shipDetails.treat_sys_name %></strong>
+            </div>
+            <div class="  col s4">
+                Approved By: <strong><%= shipDetails.approved_by %></strong>
          </div>
       </div>
 </div>
 
-<form action="/ships/<%=shipDetails._id%>?_method=DELETE" method="POST">
-    <button>Delete</button>
+
+
+<form class="right" action="/ships/<%=shipDetails._id%>?_method=DELETE" method="POST">
+    <button class="waves-effect waves-light btn red">Delete</button>
 </form>
+
 
 <% include ./partials/footer %>

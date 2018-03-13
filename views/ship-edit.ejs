@@ -3,13 +3,91 @@
 <h1>Edit Vessel</h1>
 
 <form action="/ships/<%=shipDetails._id%>?_method=PUT" method="POST">
-    <input type-="text" value="<%= shipDetails.name %>" name="shipDetails[name]"></input>
-    <input type-="text" value="<%= shipDetails.IMO %>" name="shipDetails[IMO]"></input>
-    <input type-="text" value="<%= shipDetails.call %>" name="shipDetails[call]"></input>
-    <input type-="text" value="<%= shipDetails.flag %>" name="shipDetails[flag]"></input>
-    <button>Submit!</button>
-</form>
+    
+    <!--FIRST ROW -->
 
-<a href="/ships/<%=shipDetails._id%>">Go Back</a>
+        <div class="row">
+            
+            <div class="input-field col s6 m3">
+                <input id="name" type="text" name="ship[name]" value="<%=shipDetails.name%>">
+                <label for="name">Vessel Name</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <input id="IMO" type="number" name="ship[IMO]" class="validate" data-length="7" value="<%=shipDetails.IMO%>">
+                <label for="IMO">IMO Number</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <input id="call" type="text" name="ship[call]" value="<%=shipDetails.call%>">
+                <label for="call">Call Sign</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <input id="port_of_registry" type="text" name="ship[port_of_registry]" value="<%=shipDetails.port_of_registry%>">
+                <label for="port_of_registry">Port of Registry</label>
+            </div>
+        </div>
+        
+        <!--SECOND ROW-->
+        
+        <div class="row">
+            <div class="input-field col s6 m3">
+                <input id="county_of_registry" type="text" name="ship[county_of_registry]" value="<%=shipDetails.county_of_registry%>">
+                <label for="county_of_registry">Country of registry</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <input id="gross_tonnage" type="number" name="ship[gross_tonnage]" class="validate" value="<%=shipDetails.gross_tonnage%>">
+                <label for="gross_tonnage">Gross Tonnage in MT</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <input type="text" class="datepicker" name="ship[date_of_construction]" id="date_of_construction" required>
+                <label for="date_of_construction">Date of Construction</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <input id="total_bw_cap" type="number" name="ship[total_bw_cap]" class="validate" value="<%=shipDetails.total_bw_cap%>">
+                <label for="total_bw_cap">Total BW Capacity in MT</label>
+            </div>
+        </div>
+        
+        <!--THIRD ROW-->
+        
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input id="vessel_owner" type="text" name="ship[vessel_owner]" value="<%=shipDetails.vessel_owner%>">
+                <label for="vessel_owner">Vessel Owner</label>
+            </div>
+            <div class="input-field col s6 m3">
+                <select name="ship[bw_method]">
+                  <option value="" disabled selected>Choose your option</option> 
+                  <option value="Exchange">Exchange</option>
+                  <option value="Treatment">Treatment</option>
+                </select>
+            <label>Ballast Water Method</label>
+            </div>
+            <div class="input-field col s6 m3" value="<%=shipDetails.treat_sys_name%>">
+                <input id="treat_sys_name" type="text" name="ship[treat_sys_name]">
+                <label for="treat_sys_name">Treatment System Name</label>
+            </div>
+        </div>
+            
+            <!--FOURTH ROW-->
+            
+        <div class="row">
+            <div class="input-field col s6 m3" value="<%=shipDetails.approved_by%>">
+                <input id="approved_by" type="text" name="ship[approved_by]">
+                <label for="approved_by">Approved By</label>
+            </div>
+            <div class="input-field col s6 m3" value="<%=shipDetails.vessel_type%>">
+                <input id="vessel_type" type="text" name="ship[vessel_type]">
+                <label for="vessel_type">Vessel Type</label>
+            </div>
+        </div>
+        <a href="/ships/<%=shipDetails._id%>" class="wrapper">Go Back</a>
+    <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+    </button>
+      </div>
+    
+    
+ </form>
+
 
 <% include ./partials/footer %>

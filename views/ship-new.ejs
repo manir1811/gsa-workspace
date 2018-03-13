@@ -39,7 +39,7 @@
                 <label for="gross_tonnage">Gross Tonnage in MT</label>
             </div>
             <div class="input-field col s6 m3">
-                <input type="text" class="datepicker" name="ship[date_of_construction]" id="date_of_construction">
+                <input type="text" class="datepicker" name="ship[date_of_construction]" id="date_of_construction" required>
                 <label for="date_of_construction">Date of Construction</label>
             </div>
             <div class="input-field col s6 m3">
@@ -67,13 +67,23 @@
                 <input id="treat_sys_name" type="text" name="ship[treat_sys_name]">
                 <label for="treat_sys_name">Treatment System Name</label>
             </div>
+        </div>
+            
+            <!--FOURTH ROW-->
+            
         <div class="row">
             <div class="input-field col s6 m3">
                 <input id="approved_by" type="text" name="ship[approved_by]">
                 <label for="approved_by">Approved By</label>
             </div>
+            <div class="input-field col s6 m3">
+                <input id="vessel_type" type="text" name="ship[vessel_type]">
+                <label for="vessel_type">Vessel Type</label>
+            </div>
         </div>
       </div>
+      
+      
       <a href="/jobs">Go Back</a>
         <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
             <i class="material-icons right">send</i>

@@ -1,25 +1,26 @@
 var mongoose = require("mongoose");
 
 var jobSchema = new mongoose.Schema({
-    job_num: String,        // CHANGE TEH STRING TO Number
-    job_num_month: String,  // CHANGE TEH STRING TO Number
-    IMO: String,            // CHANGE TEH STRING TO Number
+    job_num: String,        
+    job_num_month: String,  
+    IMO: String,            
     agency: String,
-    port: String,
+    // port: String,
     sampling_pt: String,
     sampling_time: String,
-    iopp: String,           // CHANGE TEH STRING TO DATE
+    iopp: String,           
     last_port: String,
-    level_1: String,        // CHANGE TEH STRING TO Number
-    level_2: String,        // CHANGE TEH STRING TO Number
-    date_notified: String,  // CHANGE TEH STRING TO DATE
-    date_complete: String,  // CHANGE TEH STRING TO DATE
+    level_1: String,        
+    level_2: String,        
+    result: String,
+    notified_date: Date,  // CHANGE TEH STRING TO DATE
+    completed_date: Date,  // CHANGE TEH STRING TO DATE
     machine_num: String,    
     time_out: String,       
     time_in: String,        
     total_trip_time: String,
-    trip_allowance: String, // CHANGE TEH STRING TO Number
-    food_allowance: String, // CHANGE TEH STRING TO Number
+    trip_allowance: String, // CHANGE TEH STRING TO String
+    food_allowance: String, // CHANGE TEH STRING TO String
     city: String,           
     terminal: String,       
     surveyor_name: String,

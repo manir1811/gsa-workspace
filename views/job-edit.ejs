@@ -4,13 +4,140 @@
 <h1>Job edit page</h1>
 
 <form action="/jobs/<%=jobDetails._id%>?_method=PUT" method="POST">
-    <input type-="text" value="<%=jobDetails.job_num %>" name="jobDetails[job_num]"></input>
-    <input type-="text" value="<%=jobDetails.IMO %>" name="jobDetails[IMO]"></input>
-    <input type-="text" value="<%=jobDetails.agency %>" name="jobDetails[agency]"></input>
-    <input type-="text" value="<%=jobDetails.port %>" name="jobDetails[port]"></input>
-    <button>Submit!</button>
+    <div class="row">
+            
+            <div class="input-field col s6 m3">
+                    <input id="job_num" type="text" value="<%=jobDetails.job_num%>" name="job[job_num]">
+                    <label for="job_num">Job Number</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input id="IMO" type="number" name="job[IMO]" value="<%=jobDetails.IMO%>" class="validate" data-length="7">
+                    <label for="IMO">IMO Number</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input id="agency" type="text" value="<%=jobDetails.agency%>" name="job[agency]">
+                    <label>Agency</label>
+                </div>
+                <div class="input-field col s6 m3">
+                   <input type="text" name="job[surveyor_name]" id="surveyor_name"/>
+                    <label for="surveyor_name">Surveyor Name:</label>
+                </div>
+            </div>
+            
+            <!--SECOND ROW-->
+            
+            <div class="row">
+                <div class="input-field col s6 m3">
+                    <input type="text" name="job[city]" value="<%=jobDetails.city%>" id="city"/>
+                    <label for="city">City</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input type="text" name="job[terminal]" value="<%=jobDetails.terminal%>" id="terminal"/>
+                    <label for="terminal">Terminal</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input type="text" value="<%=jobDetails.notified_date%>" name="job[notified_date]" id="notified_date">
+                    <label for="notified_date">Notified Date</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input type="text" value="<%=jobDetails.completed_date%>"  name="job[completed_date]" id="completed_date">
+                    <label for="completed_date">Completed Date</label>
+                </div>
+            </div>
+            
+            <!--THIRD ROW-->
+            
+            <div class="row">
+                <div class="input-field col s6 m3">
+                    <input id="sampling_pt" type="text" name="job[sampling_pt]">
+                    <label for="sampling_pt">Sampling Point</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input id="sampling_time" value="20" type="text" name="job[sampling_time]">
+                    <label for="sampling_time">Sampling Time in mins</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input type="text" value="<%=jobDetails.iopp%>" name="job[iopp]" id="iopp">
+                    <label for="iopp">IOPP Renewal Date</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input id="last_port" type="text" name="job[last_port]">
+                    <label for="last_port">Last Port/Country</label>
+                </div>
+            </div>
+                <!--FOURTH ROW-->
+                
+            <div class="row">
+                <div class="row">
+                    <div class="input-field col s6 m1">
+                        <input id="test_result" type="text" name="job[test_result]"  value="<%=jobDetails.test_result%>">
+                        <label for="test_result">Result</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input id="level_1" type="text" name="job[level_1]"  value="<%=jobDetails.level_1%>">
+                        <label for="level_1">Level 1</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input id="level_2" type="text" name="job[level_2]"  value="<%=jobDetails.level_2%>">
+                        <label for="level_2">Level 2</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                       <input id="machine_num" type="text" name="job[machine_num]"  value="<%=jobDetails.machine_numt%>">
+                        <label for="machine_num">Machine #</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input id="time_in" type="text" name="job[time_in]"   value="<%=jobDetails.time_in%>">
+                        <label for="time_in">Time In</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <label for="time_out">Time Out</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input type="text" name="job[total_trip_time]" id="total_trip_time"  value="<%=jobDetails.test_result%>">
+                        <label for="total_trip_time">Trip Time</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input type="number" name="job[food_allowance]" id="food_allowance"  value="<%=jobDetails.test_result%>">
+                        <label for="food_allowance">Food $</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input type="number" name="job[trip_allowance]" id="trip_allowance"  value="<%=jobDetails.test_result%>">
+                        <label for="trip_allowance">Trip $</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                       <select name="job[pass_used]">
+                          <option value="" disabled selected>Pass</option>
+                          <option value="Kanoo">Kanoo</option>
+                          <option value="GAC">GAC</option>
+                        </select>
+                        <label>Pass Used</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                       <select name="job[report_in_hand]">
+                          <option value="Yes" selected>Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                        <label>Report in Hand</label>
+                    </div>
+                </div>
+          </div>
+          
+          
+          
+          
+          <a href="/jobs">Go Back</a>
+            <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+
 </form>
 
-<a href="/jobs">Go Back</a>
+<script>
+    var surveyor_names = ["Akshay", "Arvind", "Manikandan", "Nithin", "Parthiban", "Sumesh"];
+    $(document).ready(function(){
+        $("#surveyor_name").autocomplete({source: surveyor_names});
+    });
+</script>
+
 
 <% include ./partials/footer %>

@@ -23,7 +23,7 @@ app.get("/", function(req, res){
 
 app.get("/jobs", function(req,res){
     //Find all the jobs from DB and loop it
-    Job.find({}, function(err, alljobs){
+    Job.find({}).populate("ships").exec(function(err, alljobs){
         if(err){
             console.log(err);
         } else {
@@ -36,12 +36,9 @@ app.get("/jobs", function(req,res){
 
 app.post("/jobs", function(req, res){
     // Get the form data and add it into the array for now!
-    var job_num = req.body.job_num;
-    var IMO = req.body.IMO;
-    var agency = req.body.agency;
-    var port = req.body.port;
-    var newJob = {job_num:job_num, IMO:IMO , agency:agency, port:port};
     
+    var IMO = req.body.job.IMO;
+   
     // FIND IMO FROM SHIP DB
     Ship.findOne({IMO: IMO}, function(err, foundShip){
         if(err){
@@ -50,7 +47,7 @@ app.post("/jobs", function(req, res){
             res.send("No ship found in Database");  // FIX THIS WITH BETTER ERROR HANDLING
         } else {
             // CREATE NEW JOB AND SAVE TO DB
-            Job.create(newJob, function(err, newCreatedJob){
+            Job.create(req.body.job, function(err, newCreatedJob){
                 if(err){
                     console.log(err);
                 } else {
@@ -61,10 +58,11 @@ app.post("/jobs", function(req, res){
                             console.log(err);
                         } else {
                             // console.log(data);
+                             res.redirect("/jobs");
                         }
                     });
                         //Redirect to jobs page
-                        res.redirect("/jobs");
+                       
                 }
             });
         }
@@ -107,10 +105,11 @@ app.get("/jobs/:id/edit", function(req, res){
 // JOB UPDATE
 
 app.put("/jobs/:id", function(req, res){
-    Job.findByIdAndUpdate(req.params.id, req.body.jobDetails, function(err, updatedJobDetails){
+    Job.findByIdAndUpdate(req.params.id, req.body.job, function(err, updatedJobDetails){
        if(err){
            console.log(err);
        } else {
+           console.log(req.body.updatedJobDetails);
            res.redirect("/jobs/" + req.params.id);
        }
     });
@@ -191,7 +190,7 @@ app.get("/ships/:id/edit", function(req, res){
 // SHIP UPDATE
 
 app.put("/ships/:id", function(req, res){
-    Ship.findByIdAndUpdate(req.params.id, req.body.shipDetails, function(err, updatedShipDetails){
+    Ship.findByIdAndUpdate(req.params.id, req.body.ship, function(err, updatedShipDetails){
        if(err){
            console.log(err);
        } else {

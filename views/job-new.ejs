@@ -1,15 +1,166 @@
 <% include ./partials/header %>
 
-<h1>Add a new job</h1>
+<h4 class="center">Add a job</h4>
 
 <form action="/jobs" method="POST">
-    <input type-="text" placeholder="Job Number" name="job_num"></input>
-    <input type-="text" placeholder="IMO Number" name="IMO"></input>
-    <input type-="text" placeholder="Agency" name="agency"></input>
-    <input type-="text" placeholder="Port" name="port"></input>
-    <button>Submit!</button>
+    
+    <div class="row">
+            
+            <div class="input-field col s6 m3">
+                    <input id="job_num" type="text" name="job[job_num]">
+                    <label for="job_num">Job Number</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input id="IMO" type="number" name="job[IMO]" class="validate" data-length="7" >
+                    <label for="IMO">IMO Number</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <select name="job[agency]" >
+                      <option value="" disabled selected>Choose Agency</option>
+                      <option value="Ali Reza">Ali Reza</option>
+                      <option value="GAC">GAC</option>
+                      <option value="Kanoo">Kanoo</option>
+                      <option value="Lama Marine">Lama Marine</option>
+                      <option value="Sharaf">Sharaf</option>
+                      <option value="WSS">WSS</option>
+                    </select>
+                    <label>Agency</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <select name="job[surveyor_name]" >
+                      <option value="" disabled selected>Choose Surveyor</option>
+                      <option value="Akshay">Akshay</option>
+                      <option value="Arvind">Arvind</option>
+                      <option value="Manikandan">Manikandan</option>
+                      <option value="Nithin">Nithin</option>
+                      <option value="Parthiban">Parthiban</option>
+                      <option value="Sumesh">Sumesh</option>
+                    </select>
+                    <label>Surveyor Name:</label>
+                </div>
+            </div>
+            
+            <!--SECOND ROW-->
+            
+            <div class="row">
+                <div class="input-field col s6 m3">
+                    <input id="city" type="text" name="job[city]">
+                    <label for="city">City</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <select name="job[terminal]">
+                      <option value="" disabled selected>Choose Terminal</option>
+                      <option value="Ras Tanura">Ras Tanura</option>
+                      <option value="Juaymah">Juaymah</option>
+                    </select>
+                    <label>Terminal</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input type="date" class="datepicker" name="job[notified_date]" id="notified_date">
+                    <label for="notified_date">Notified Date</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input type="date" class="datepicker" name="job[completed_date]" id="completed_date">
+                    <label for="completed_date">Completed Date</label>
+                </div>
+            </div>
+            
+            <!--THIRD ROW-->
+            
+            <div class="row">
+                <div class="input-field col s6 m3">
+                    <input id="sampling_pt" type="text" name="job[sampling_pt]">
+                    <label for="sampling_pt">Sampling Point</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input id="sampling_time" value="20" type="text" name="job[sampling_time]">
+                    <label for="sampling_time">Sampling Time in mins</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input type="date" class="datepicker" name="job[iopp]" id="iopp">
+                    <label for="iopp">IOPP Renewal Date</label>
+                </div>
+                <div class="input-field col s6 m3">
+                    <input id="last_port" type="text" name="job[last_port]">
+                    <label for="last_port">Last Port/Country</label>
+                </div>
+            </div>
+                <!--FOURTH ROW-->
+                
+            <div class="row">
+                <div class="row">
+                    <div class="input-field col s6 m1">
+                        <select name="job[test_result]">
+                          <option value="" disabled selected>Result</option>
+                          <option value="Pass">Pass</option>
+                          <option value="Fail">Fail</option>
+                        </select>
+                        <label>Result</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input id="level_1" type="number" name="job[level_1]">
+                        <label for="level_1">Level 1</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input id="level_2" type="number" name="job[level_2]">
+                        <label for="level_2">Level 2</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <select name="job[machine_num]">
+                          <option value="" disabled selected>Machine</option>
+                          <option value="02">02</option>
+                          <option value="03">03</option>
+                          <option value="04">04</option>
+                          <option value="06">06</option>
+                          <option value="13">13</option>
+                          <option value="14">14</option>
+                        </select>
+                        <label>Machine #</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input id="time_in" type="text" name="job[time_in]" class="timepicker">
+                        <label for="time_in">Time In</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input id="time_out" type="text" name="job[time_out]" class="timepicker">
+                        <label for="time_out">Time Out</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input type="text" name="job[total_trip_time]" id="total_trip_time">
+                        <label for="total_trip_time">Trip Time</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input type="number" name="job[food_allowance]" id="food_allowance">
+                        <label for="food_allowance">Food $</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                        <input type="number" name="job[trip_allowance]" id="trip_allowance">
+                        <label for="trip_allowance">Trip $</label>
+                    </div>
+                    <div class="input-field col s6 m1">
+                       <select name="job[pass_used]">
+                          <option value="" disabled selected>Pass</option>
+                          <option value="Kanoo">Kanoo</option>
+                          <option value="GAC">GAC</option>
+                        </select>
+                        <label>Pass Used</label>
+                    </div>
+                    <div class="input-field col s6 m2">
+                       <select name="job[report_in_hand]">
+                          <option value="Yes" selected>Yes</option>
+                          <option value="No">No</option>
+                        </select>
+                        <label>Report in Hand</label>
+                    </div>
+                </div>
+          </div>
+          
+          
+          
+          <a href="/jobs">Go Back</a>
+            <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
 </form>
-
-<a href="/jobs">Go Back</a>
 
 <% include ./partials/footer %>

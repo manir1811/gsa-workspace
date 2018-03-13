@@ -1,20 +1,184 @@
+
 <% include ./partials/header %>
 
-<h1>Job Number: <%= jobDetails.job_num %> </h1>
-<p>Agency: <%= jobDetails.agency %> </p>
-<p>Port: <%= jobDetails.port %> </p>
+<h4 class="center">Job <%= jobDetails.job_num %> for IMO <%=jobDetails.IMO%> <a class="right" href="/jobs/<%=jobDetails._id%>/edit"><i class="material-icons">edit</i></a></h4>
 
-    <% jobDetails.ship.forEach(function(vessel){ %>
-        <h1> <%=vessel.name%> </h1>
-        <p>Ship Name: <%=vessel.IMO%></p>
-        <p>Call Sign: <%=vessel.call%></p>
-        <p>Flag: <%=vessel.flag%></p>
+   <% jobDetails.ship.forEach(function(vessel){ %>
+   <h5 class="center">Ship Details</h5>
+        <div class="row">
+                
+                <!--FIRST ROW -->
+                
+                <div class="row">
+                    <div class=" col s4">
+                        Vessel Name: <strong><%= vessel.name %></strong>
+                    </div>
+                    <div class=" col s4">
+                        IMO Number: <strong><%= vessel.IMO %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Call Sign: <strong><%= vessel.call %></strong>
+                    </div>
+                </div>
+                
+                <!--SECOND ROW-->
+               <div class="row">
+                   <div class="  col s4">
+                        Port of Registry: <strong><%= vessel.port_of_registry %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Country of Registry: <strong><%= vessel.country_of_registry %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Gross Tonnage: <strong><%= vessel.gross_tonnage %></strong>
+                    </div>
+               </div>
+               
+            <!--THIRD ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        Date of Construction: <strong><%= vessel.date_of_construction %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Total BW Capacity: <strong><%= vessel.total_bw_cap %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Ballast Water Method: <strong><%= vessel.bw_method %></strong>
+                    </div>
+                </div>
+              
+              <!--FOURTH ROW-->
+              
+                <div class="row">
+                    <div class="  col s4">
+                        Treatment Name: <strong><%= vessel.treat_sys_name %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Approved By: <strong><%= vessel.approved_by %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Vessel Owner: <strong><%= vessel.vessel_owner %></strong>
+                    </div>
+                </div>
+                
+               
+                
+        </div>
+        
     <% }); %>
+    
+    <h5 class="center">Job Details</h5>
+    
+     <!--FIFTH ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        Sampling Point: <strong><%= jobDetails.sampling_pt %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Sampling Time: <strong><%= jobDetails.sampling_time %> mins</strong>
+                    </div>
+                    <div class="  col s4">
+                        Sampling Point: <strong><%= jobDetails.sampling_pt %></strong>
+                    </div>
+                </div>
+                
+                <!--SIXTH ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        IOPP Renewal Date: <strong><%= jobDetails.iopp %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Last Port/Country: <strong><%= jobDetails.last_port %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Result: <strong><%= jobDetails.test_result %></strong>
+                    </div>
+                </div>
+                
+                <!--SEVENTH ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        Level 1: <strong><%= jobDetails.level_1 %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Level 2: <strong><%= jobDetails.level_2 %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Machine Used: <strong><%= jobDetails.machine_num %></strong>
+                    </div>
+                </div>
+                
+                <!--EIGHTH ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        Notified Date: <strong><%= jobDetails.notified_date %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Completed Date: <strong><%= jobDetails.completed_date %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Agency: <strong><%= jobDetails.agency %></strong>
+                    </div>
+                </div>
+                
+                 <!--NINTH ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        Surveyor Name: <strong><%= jobDetails.surveyor_name %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Time Out: <strong><%= jobDetails.time_out %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Time In: <strong><%= jobDetails.time_in %></strong>
+                    </div>
+                </div>
+                
+                <!--TENTH ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        Trip Time: <strong><%= jobDetails.total_trip_time %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Trip Allowance: <strong>SAR <%= jobDetails.trip_allowance %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Food Allowance: <strong>SAR <%= jobDetails.time_in %></strong>
+                    </div>
+                </div>
+                
+                <!--ELEVENTH ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        City: <strong><%= jobDetails.city %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Terminal: <strong><%= jobDetails.terminal %></strong>
+                    </div>
+                    <div class="  col s4">
+                        Pass Used: <strong><%= jobDetails.pass_used %></strong>
+                    </div>
+                </div>
+                
+                <!--12H ROW-->
+                
+                <div class="row">
+                    <div class="  col s4">
+                        Report in hand: <strong><%= jobDetails.report_in_hand %></strong>
+                    </div>
+                </div>
 
 
 <form action="/jobs/<%=jobDetails._id%>?_method=DELETE" method="POST">
-    <button>Delete</button>
-    <input></input>
+    <button class="waves-effect waves-light btn red right">Delete</button>
 </form>
 
 <% include ./partials/footer %>
