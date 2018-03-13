@@ -23,7 +23,7 @@ app.get("/", function(req, res){
 
 app.get("/jobs", function(req,res){
     //Find all the jobs from DB and loop it
-    Job.find({}).populate("ships").exec(function(err, alljobs){
+    Job.find({},function(err, alljobs){
         if(err){
             console.log(err);
         } else {

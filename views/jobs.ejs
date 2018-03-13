@@ -7,17 +7,23 @@
         <li>
           <div class="collapsible-header">
                   <div class="row" style="width:100%">
-                      <div class="col s3">
-                        Job #: <%= job.job_num %>
-                      </div>
-                      <div class="col s3">
-                        IMO: <%= job.ship.name %>
-                      </div>
-                      <div class="col s3">
-                       Agency: <%= job.agency %>
+                      <div class="col s1">
+                       <strong>#: <%= job.job_num %></strong>
                       </div>
                       <div class="col s2">
-                        Port: <%= job.terminal %>
+                       <strong><%= job.completed_date.toDateString() %></strong>
+                      </div>
+                      <div class="col s3">
+                        <strong> <%= job.ship[0].name %> </strong>
+                      </div>
+                      <div class="col s2">
+                       <strong><%= job.agency %></strong>
+                      </div>
+                      <div class="col s1">
+                       <strong><%= job.test_result %></strong>
+                      </div>
+                      <div class="col s2">
+                        <strong><%= job.terminal %> </strong>
                       </div>
                       <div class="col s1">
                         <a href="/jobs/<%= job._id %>"><i class="material-icons">info_outline</i></a>
