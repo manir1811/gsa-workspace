@@ -1,9 +1,19 @@
-<h1>Sign Up</h1>
+<% include ./partials/header %>
 
-<form action='/register' method='POST'>
-    <input type="text" id="username" name='username'>
-    <label for="username">Username</label>
-    <input type="password" id="password" name='password'>
-    <label for="password">Password</label>
-    <button>Sign Up</button>
+<h4 class="center">Sign Up</h4>
+
+<form action='/register' method='POST' class="center card-panel" id='register-form'>
+    <div class="row">
+        <div class="input-field col s12">
+             <input id="username" type="text" name="username">
+             <label for="username">Username</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="password" type="password" name="password">
+            <label for="password">Password</label>
+        </div>
+    </div>
+    <button class="btn waves-effect waves-light">Sign Up</button>
 </form>
+
+<% include ./partials/footer %>

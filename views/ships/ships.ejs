@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 <h4 class="center">Vessel Database <a href="/ships/new" class="waves-effect waves-light btn right">Add</a></h4>
 
@@ -24,9 +24,11 @@
                       </div>
               </div>
           </div>
-          <div class="collapsible-body grey lighten-4"><span>Lorem ipsum dolor sit amet.</span></div>
+          <div class="collapsible-body grey lighten-4">
+            BW Method: <%= ship.bw_method %>
+          </div>
         </li>
        <% }); %>
       </ul>
 
-<% include ./partials/footer %>
+<% include ../partials/footer %>

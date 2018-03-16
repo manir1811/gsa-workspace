@@ -3,37 +3,14 @@
     <head>
         <title>GSA Workspace</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <!--<link href="./datetimepicker.min.css" rel="stylesheet">-->
-        <style>
-             body{
-                padding:0px;
-                margin:0px;
-                width: 100%;
-            }
-            
-            .wrapper {
-                width:90%;
-                margin-top:100px;
-                margin: auto;
-            }
-            
-            h1,h3,h4{
-                margin:0px;
-                padding-top:100px;
-                padding-bottom: 20px;
-            }
-            
-            .collapsible-header{
-              padding-bottom: 0px; 
-              padding-top: 20px;
-            }
-  
-        </style>
+
     </head>
     <body>
         <!--NAVBAR STARTS-->
@@ -49,9 +26,12 @@
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/jobs">Jobs</a></li>
                     <li><a href="/ships">Ships</a></li>
-                    <li><a href="/profile">Profile</a></li>
+                    <% if(!currentUser){ %>
                     <li><a href="/login">Login</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <% } else { %>
+                    <li><a href="/profile"><%=currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1);%></a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <% } %>
                   </ul>
               </div>
               <ul class="side-nav" id="mobile-demo">
