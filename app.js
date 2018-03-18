@@ -233,6 +233,10 @@ app.delete("/ships/:id", isLoggedIn, function(req, res){
     });
 });
 
+app.get('/profile', function(req, res){
+    res.send('You have hit the profile page');
+});
+
 // ========= AUTH ROUTES ===============
 // =====================================
 
