@@ -1,12 +1,13 @@
 <% include ./partials/header %>
 
-<h4>Dashboard</h4>
+<h4 class="center">DASHBOARD</h4>
 
  <div class="row">
   <div class="col m4">
+      <h5 class="center">Work Order</h5>
        <ul class="collection">
       <% surveyors.forEach(function(surveyor){ %>
-          <li class="collection-item"><%=surveyor.username%> <span class="right"><%=surveyor.incentive%></span></li>
+          <li class="collection-item"><%=surveyor.username.toUpperCase()%> <span class="right"><%=surveyor.incentive%></span></li>
       <% }) %>
     </ul>
   </div>
