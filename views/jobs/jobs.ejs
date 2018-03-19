@@ -11,7 +11,7 @@
                        <strong>#: <%= job.job_num %></strong>
                       </div>
                       <div class="col s2">
-                       <strong><%= job.completed_date %></strong>
+                       <strong><%= job.completed_date.toDateString() %></strong>
                       </div>
                       <div class="col s3">
                         <strong> <%= job.ship[0].name %> </strong>
@@ -26,7 +26,7 @@
                         <strong><%= job.terminal %> </strong>
                       </div>
                       <div class="col s1">
-                        <a href="/jobs/<%= job._id %>"><i class="material-icons">info_outline</i></a>
+                        <a href="/jobs/<%= job._id %>"><i class="material-icons">arrow_forward</i></a>
                       </div>
               </div>
           </div>

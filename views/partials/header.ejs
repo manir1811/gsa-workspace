@@ -5,9 +5,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
         <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <!--<link href="./datetimepicker.min.css" rel="stylesheet">-->
 
@@ -15,33 +14,47 @@
     <body>
         <!--NAVBAR STARTS-->
         
-        <div class="navbar-fixed">
-          <nav class="blue">
-            <div class="wrapper">
-              <a href="/" class="brand-logo">GSA</a>
+        <div class="head" id="Header">   
+          <div class="navbar-fixed">
+                <nav class="blue">
+                    <div class="nav-wrapper custom-color">
+                        <a class="brand-logo center">GSA</a>
+                        <a href="#" data-activates="mobile-demo" class="button-collapse" id="btncollapse">
+                            &#9776;
+                        </a>
+                        <ul class="left hide-on-med-and-down transparent">
+                            <li><a href="/" class="link"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a></li>
+                            <li><a href="/" class="link">Dashboard</a></li>
+                            <li><a href="/jobs" class="link">Jobs</a></li>
+                            <li><a href="/ships" class="link">Ships</a></li>
+                            <li><a href="#Contact" class="link"><i class="fa fa-search "></i></a></li>
+                        </ul>
+                        <ul class="right hide-on-med-and-down transparent">
+                            <% if(!currentUser){ %>
+                                <li><a href="https://twitter.com/manir1811" target="_blank" class="link"><i class="fa fa-2x fa-sign-in"></i></a></li>
+                                <% } else { %>
+                                <li><a href="/profile" class="link"><%=currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1);%></a></li>
+                                <li><a href="/logout" class="link"><i class="fa fa-2x fa-sign-out"></i></a></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </nav>
             </div>
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-              <div class="wrapper">
-                  <ul class="right hide-on-med-and-down">
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/jobs">Jobs</a></li>
-                    <li><a href="/ships">Ships</a></li>
-                    <% if(!currentUser){ %>
-                    <li><a href="/login">Login</a></li>
-                    <% } else { %>
-                    <li><a href="/profile"><%=currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1);%></a></li>
-                    <li><a href="/logout">Logout</a></li>
-                    <% } %>
-                  </ul>
-              </div>
-              <ul class="side-nav" id="mobile-demo">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
-                <li><a href="mobile.html">Mobile</a></li>
+            <ul class="side-nav" id="mobile-demo">
+                  <li><a href="/" class="link">Dashboard <i class="fa fa-home fa-2x" aria-hidden="true"></i></a></li>
+                  <li><a href="/jobs" class="link">Jobs<i class="fa fa-briefcase fa-2x"></i></a></li>
+                  <li><a href="/ships" class="link">Ships<i class="fa fa-ship fa-2x"></i></a></li>
+                  <li><a href="/search" class="link">Search<i class="fa fa-search fa-2x"></i></a></li>
+                  <% if(!currentUser){ %>
+                      <li><a href="https://twitter.com/manir1811" target="_blank" class="link">Sign In<i class="fa fa-2x fa-sign-in"></i></a></li>
+                      <% } else { %>
+                      <li><a href="/profile" class="link"><%=currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1);%><i class="fa fa-user-circle fa-2x"></i></a></li>
+                      <li><a href="/logout" class="link">Sign Out<i class="fa fa-2x fa-sign-out"></i></a></li>
+                  <% } %>
               </ul>
-          </nav>
-        <div>
+        </div>
+        
+        
             
     <!--NAVBAR ENDS!!!-->
         
