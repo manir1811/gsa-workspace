@@ -26,19 +26,19 @@ var jobSchema = new mongoose.Schema({
     // port: String,
     sampling_pt: String,
     sampling_time: String,
-    iopp: String,           
+    iopp: Date,           
     last_port: String,
     level_1: String,        
     level_2: String,        
     result: String,
-    notified_date: Date,  // CHANGE TEH STRING TO DATE
-    completed_date: Date,  // CHANGE TEH STRING TO DATE
+    notified_date: Date,  
+    completed_date: Date,  
     machine_num: String,    
     time_out: String,       
     time_in: String,        
     total_trip_time: String,
-    trip_allowance: String, // CHANGE TEH STRING TO String
-    food_allowance: String, // CHANGE TEH STRING TO String
+    trip_allowance: Number, 
+    food_allowance: Number, 
     city: String,           
     terminal: String,       
     surveyor_name: String,

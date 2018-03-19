@@ -8,6 +8,8 @@ var UserSchema = new mongoose.Schema({
     incentive: Number
 });
 
+// db.users.update({username: "sumesh"}, {$set: { role: "surveyor"}})
+
 UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model("User", UserSchema);

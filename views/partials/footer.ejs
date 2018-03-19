@@ -5,11 +5,11 @@
        
         
         <script>
-        
-        
+         var surveyor_names = ["Akshay", "Arvind", "Manikandan", "Nithin", "Parthiban", "Sumesh"];
+  
             $( document ).ready(function(){
                 $(".button-collapse").sideNav(); 
-                
+                $("#surveyor_name").autocomplete({source: surveyor_names});
                 $('select').material_select();
                 
                 

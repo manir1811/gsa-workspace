@@ -1,6 +1,16 @@
 <% include ./partials/header %>
 
-<h1>GSA Dashboard</h1>
+<h4>Dashboard</h4>
+
+ <div class="row">
+  <div class="col m4">
+       <ul class="collection">
+      <% surveyors.forEach(function(surveyor){ %>
+          <li class="collection-item"><%=surveyor.username%> <span class="right"><%=surveyor.incentive%></span></li>
+      <% }) %>
+    </ul>
+  </div>
+</div>
 
 <a href="/jobs">View Jobs</a>
 

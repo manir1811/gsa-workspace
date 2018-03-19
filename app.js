@@ -37,14 +37,47 @@ app.use(function(req, res, next){
 //=======================================
 
 app.get("/", function(req, res){
-    res.render("dboard");
+    // FIND ALL SURVEYORS
+     User.find({role: "surveyor"}).sort({incentive: 'asc'}).exec(function(err, surveyors){
+        if(err){
+            console.log(err);
+        } else {
+            // console.log(surveyors);
+            // FOR EACH SURVEYOR CALCULATE TOTAL INCENTIVE
+            surveyors.forEach(function(surveyor){
+                // console.log(surveyor);
+                // FIND ALL THE JOBS THE RESPECTIVE SURVERYORS HAVE CARIIED OUT
+                Job.find({surveyor_name: surveyor.username}, function(err, foundJobs){
+                    var total = 0;
+                    if(err){
+                        console.log(err);
+                    } else {
+                        foundJobs.forEach(function(job){ 
+                            total += job.trip_allowance + job.food_allowance;
+                        }); 
+                        // console.log(surveyor.username + " = " + total);
+                        // UPDATE IT TO THE DATABASE
+                        User.findOneAndUpdate({username:surveyor.username}, {$set: {incentive: total}}, {new: true}, function(err, updatedUser){
+                            if(err){
+                                console.log(err);
+                            } else {
+                                // console.log(updatedUser);
+                            }
+                        });
+                    }
+                });
+                
+            });
+        }
+        res.render('./dboard', {surveyors: surveyors});
+    });
 });
 
 // JOB SHOW ALL
 
 app.get("/jobs", isLoggedIn, function(req,res){
     //Find all the jobs from DB and loop it
-    Job.find({},function(err, alljobs){
+    Job.find({}).sort({completed_date: 'desc'}).exec(function(err, alljobs){
         if(err){
             console.log(err);
         } else {
@@ -79,11 +112,10 @@ app.post("/jobs", isLoggedIn, function(req, res){
                             console.log(err);
                         } else {
                             // console.log(data);
+                            //Redirect to jobs page
                              res.redirect("/jobs");
                         }
                     });
-                        //Redirect to jobs page
-                       
                 }
             });
         }
@@ -130,7 +162,7 @@ app.put("/jobs/:id", isLoggedIn, function(req, res){
        if(err){
            console.log(err);
        } else {
-           console.log(req.body.updatedJobDetails);
+        //   console.log(req.body.updatedJobDetails);
            res.redirect("/jobs/" + req.params.id);
        }
     });
@@ -233,8 +265,14 @@ app.delete("/ships/:id", isLoggedIn, function(req, res){
     });
 });
 
-app.get('/profile', function(req, res){
-    res.send('You have hit the profile page');
+app.get('/profile', isLoggedIn, function(req, res){
+    // var presentUser = req.user;
+    User.findOne({username: req.user.username}, function(err, foundUser){
+        if(err){
+            console.log(err);
+        } 
+        res.render('./profile', {foundUser: foundUser});
+    });
 });
 
 // ========= AUTH ROUTES ===============
@@ -242,22 +280,29 @@ app.get('/profile', function(req, res){
 
 // SHOW REGISTER FORM
 
-app.get('/register', isLoggedIn, function(req, res){
+app.get('/register', function(req, res){
     res.render('register');
 });
 
 // HANDLE SIGN UP LOGIC
 
-app.post('/register', isLoggedIn, function(req, res){
+app.post('/register',  function(req, res){
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
             console.log(err);
             return res.render('register');
         } else {
-            passport.authenticate("local")(req, res, function(){
-                res.redirect('/');
+            User.findOneAndUpdate({username: req.body.username}, {$set:{role: req.body.role}}, {new: true}, function(err, updatedUser){
+                if(err){
+                    console.log(err);
+                } else {
+                       passport.authenticate("local")(req, res, function(){
+                            res.redirect('/');
+                        });
+                    }
             });
+            
         }
     });
 });
