@@ -37,6 +37,9 @@ app.use(function(req, res, next){
 //=======================================
 
 app.get("/", function(req, res){
+     var today = new Date();
+     var month = today.getMonth();
+    //  console.log(month);
     // FIND ALL SURVEYORS
      User.find({role: "surveyor"}).sort({incentive: 'asc'}).exec(function(err, surveyors){
         if(err){
@@ -53,8 +56,11 @@ app.get("/", function(req, res){
                         console.log(err);
                     } else {
                         foundJobs.forEach(function(job){ 
-                            total += job.trip_allowance + job.food_allowance;
-                        }); 
+                            // console.log(job.completed_date.getMonth());
+                            if(job.completed_date.getMonth() == month){
+                                 total += job.trip_allowance + job.food_allowance;
+                               } 
+                            });
                         // console.log(surveyor.username + " = " + total);
                         // UPDATE IT TO THE DATABASE
                         User.findOneAndUpdate({username:surveyor.username}, {$set: {incentive: total}}, {new: true}, function(err, updatedUser){
