@@ -9,6 +9,8 @@ var User = require("./models/user");
 var Ship = require("./models/ship");
 var Job = require("./models/job");
 
+
+
 mongoose.connect("mongodb://localhost/workspace");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
@@ -33,9 +35,6 @@ app.use(function(req, res, next){
     next();
 });
 
-//=========== JOB ROUTES ================
-//=======================================
-
 app.get("/", function(req, res){
      var today = new Date();
      var month = today.getMonth();
@@ -47,39 +46,40 @@ app.get("/", function(req, res){
         } else {
             // console.log(surveyors);
             // FOR EACH SURVEYOR CALCULATE TOTAL INCENTIVE
-            surveyors.forEach(function(surveyor){
-                // console.log(surveyor);
-                // FIND ALL THE JOBS THE RESPECTIVE SURVERYORS HAVE CARIIED OUT
-                Job.find({surveyor_name: surveyor.username}, function(err, foundJobs){
-                    var total = 0;
-                    if(err){
-                        console.log(err);
-                    } else {
-                        foundJobs.forEach(function(job){ 
-                            // console.log(job.completed_date.getMonth());
-                            if(job.completed_date.getMonth() == month){
-                                 total += job.trip_allowance + job.food_allowance;
-                               } 
-                            });
-                        // console.log(surveyor.username + " = " + total);
-                        // UPDATE IT TO THE DATABASE
-                        User.findOneAndUpdate({username:surveyor.username}, {$set: {incentive: total}}, {new: true}, function(err, updatedUser){
-                            if(err){
-                                console.log(err);
-                            } else {
-                                // console.log(updatedUser);
-                            }
-                        });
-                    }
-                });
+            // surveyors.forEach(function(surveyor){
+            //     // console.log(surveyor);
+            //     // FIND ALL THE JOBS THE RESPECTIVE SURVERYORS HAVE CARIIED OUT
+            //     Job.find({surveyor_name: surveyor.username}, function(err, foundJobs){
+            //         var total = 0;
+            //         if(err){
+            //             console.log(err);
+            //         } else {
+            //             foundJobs.forEach(function(job){ 
+            //                 // console.log(job.completed_date.getMonth());
+            //                 if(job.completed_date.getMonth() == month){
+            //                      total += job.trip_allowance + job.food_allowance;
+            //                   } 
+            //                 });
+            //             // console.log(surveyor.username + " = " + total);
+            //             // UPDATE IT TO THE DATABASE
+            //             User.findOneAndUpdate({username:surveyor.username}, {$set: {incentive: total}}, {new: true}, function(err, updatedUser){
+            //                 if(err){
+            //                     console.log(err);
+            //                 } else {
+            //                     // console.log(updatedUser);
+            //                 }
+            //             });
+            //         }
+            //     });
                 
-            });
+            // });
         }
         res.render('./dboard', {surveyors: surveyors});
     });
 });
 
-// JOB SHOW ALL
+//=========== JOB ROUTES ================
+//=======================================
 
 app.get("/jobs", isLoggedIn, function(req,res){
     //Find all the jobs from DB and loop it
@@ -96,7 +96,8 @@ app.get("/jobs", isLoggedIn, function(req,res){
 
 app.post("/jobs", isLoggedIn, function(req, res){
     // Get the form data and add it into the array for now!
-    
+    var today = new Date();
+     var month = today.getMonth();
     var IMO = req.body.job.IMO;
    
     // FIND IMO FROM SHIP DB
@@ -117,6 +118,39 @@ app.post("/jobs", isLoggedIn, function(req, res){
                         if(err){
                             console.log(err);
                         } else {
+                            User.find({}, function(err, surveyors){
+                                if(err){
+                                    console.log(err);
+                                } else {
+                                    surveyors.forEach(function(surveyor){
+                                    // console.log(surveyor);
+                                    // FIND ALL THE JOBS THE RESPECTIVE SURVERYORS HAVE CARIIED OUT
+                                    Job.find({surveyor_name: surveyor.username}, function(err, foundJobs){
+                                        var total = 0;
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            foundJobs.forEach(function(job){ 
+                                                // console.log(job.completed_date.getMonth());
+                                                if(job.completed_date.getMonth() == month){
+                                                     total += job.trip_allowance + job.food_allowance;
+                                                   } 
+                                                });
+                                            // console.log(surveyor.username + " = " + total);
+                                            // UPDATE IT TO THE DATABASE
+                                            User.findOneAndUpdate({username:surveyor.username}, {$set: {incentive: total}}, {new: true}, function(err, updatedUser){
+                                                if(err){
+                                                    console.log(err);
+                                                } else {
+                                                    // console.log(updatedUser);
+                                                }
+                                            });
+                                        }
+                                    });
+                                    
+                                });
+                                }
+                            });
                             // console.log(data);
                             //Redirect to jobs page
                              res.redirect("/jobs");
@@ -184,7 +218,6 @@ app.delete("/jobs/:id", isLoggedIn, function(req, res){
         }
     });
 });
-
 
 //============== SHIP ROUTES ====================
 //===============================================
@@ -280,6 +313,7 @@ app.get('/profile', isLoggedIn, function(req, res){
         res.render('./profile', {foundUser: foundUser});
     });
 });
+
 
 // ========= AUTH ROUTES ===============
 // =====================================
